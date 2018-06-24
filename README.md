@@ -1,4 +1,4 @@
-# XXX系统
+# 在线判题系统
 
 
 集成开发环境: IDEA 
@@ -13,7 +13,7 @@ VPN： L2TP 使用预共享密钥 ip：218.195.250.2 账号稍后分配，VPN工
 UI设计（）: 
 前端（我）: react(View)   
 
-后端（梁雪东、易大强负责）: spring boot(Model)微服务 使用spring MVC中的Controller  根据相应post提供application/json形式的API接口
+后端（梁雪东、易大强负责）: spring boot(Model)微服务  根据相应post提供application/json形式的API接口
 	
 前后端完全分离开发
 
