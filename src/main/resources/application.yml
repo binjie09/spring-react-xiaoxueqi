@@ -1,0 +1,22 @@
+
+# spring 配置
+spring:
+  # data rest 配置
+  data:
+    rest:
+      base-path: /api
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: UTC
+
+  # DataSource
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://218.195.250.2:3306/dev
+    username: root
+    password: Rjxy123
+
