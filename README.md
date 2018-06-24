@@ -1,21 +1,21 @@
-# XXXϵͳ
+# XXX系统
 
 
-���ɿ�������: IDEA 
+集成开发环境: IDEA 
 
-���ݿ�: MySql��docker��    
-	218.195.250.2:3306 �˺�root����Rjxy123���ݿ�ʹ��dev
+数据库: MySql（docker）    
+	218.195.250.2:3306 账号root密码Rjxy123数据库使用dev
 
-���������github��
+代码管理（github）
 
-VPN�� L2TP ʹ��Ԥ������Կ ip��218.195.250.2 �˺��Ժ���䣬VPN�������������ʹ��github��google�ȡ�
+VPN： L2TP 使用预共享密钥 ip：218.195.250.2 账号稍后分配，VPN工作网可以愉快使用github和google等。
 
-UI��ƣ���: 
-ǰ�ˣ��ң�: react(View)   // react-route4(Controler)
+UI设计（）: 
+前端（我）: react(View)   
 
-��ˣ���ѩ�����״�ǿ����: spring boot(Model)΢���� ʹ��spring MVC�е�Controller  ������Ӧpost�ṩapplication/json��ʽ��API�ӿ�
+后端（梁雪东、易大强负责）: spring boot(Model)微服务 使用spring MVC中的Controller  根据相应post提供application/json形式的API接口
 	
-ǰ�����ȫ���뿪��
+前后端完全分离开发
 
-�����docker�� 
+最后部署（docker） 
 
