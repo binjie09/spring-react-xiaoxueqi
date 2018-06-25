@@ -199,11 +199,11 @@ class CreateDialog extends React.Component {
                     <div>
                         <a href="#" title="Close" className="close">X</a>
 
-                        <h2>Create new employee</h2>
+                        <h2>Create new employeeeeeeeeeeee</h2>
 
                         <form>
                             {inputs}
-                            <button onClick={this.handleSubmit}>Create</button>
+                            <button onClick={this.handleSubmit}>Createeeeeeeee</button>
                         </form>
                     </div>
                 </div>

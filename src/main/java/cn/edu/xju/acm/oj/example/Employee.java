@@ -21,6 +21,8 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
+
+
 /**
  * @author Greg Turnquist
  */
@@ -33,6 +35,8 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private String description;
+
+
 
 	private Employee() {}
 
