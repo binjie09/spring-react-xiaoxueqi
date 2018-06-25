@@ -5,15 +5,72 @@ import CreateDialog from './components/createDialog'
 import EmployeeList from './components/employeeList'
 import User from "./components/user";
 import RankList from "./components/rankList";
+import moment from 'moment';
+import { DatePicker, version } from 'antd';
+
 
 const React = require('react');
 const ReactDOM = require('react-dom')
 const when = require('when');
 const client = require('./client');
-
+import { Menu, Icon } from 'antd';
+const MenuItemGroup = Menu.ItemGroup;
+const SubMenu = Menu.SubMenu;
 const follow = require('./follow'); // function to hop multiple links by "rel"
 
 const root = '/api';
+class Sider extends React.Component {
+    constructor(props) {
+        super(props); // you always need to call super();
+
+        this.state =
+        {
+                current: 'mail',
+        }
+
+        this.handleClick=this.handleClick.bind(this)
+
+    }
+
+
+
+    handleClick  (e)  {
+        console.log('click ', e);
+        this.setState({
+            current: e.key,
+        });
+    }
+
+    render() {
+        return (
+                <Menu
+                    onClick={this.handleClick}
+                    selectedKeys={[this.state.current]}
+                    mode="horizontal"
+                >
+                    <Menu.Item key="mail">
+                        <Icon type="mail" />排行榜
+                    </Menu.Item>
+                    <Menu.Item key="app" disabled>
+                        <Icon type="appstore" />举行的比赛
+                    </Menu.Item>
+                    <SubMenu title={<span><Icon type="setting" />Navigation Three - Submenu</span>}>
+                        <MenuItemGroup title="Item 1">
+                            <Menu.Item key="setting:1">Option 1</Menu.Item>
+                            <Menu.Item key="setting:2">Option 2</Menu.Item>
+                        </MenuItemGroup>
+                        <MenuItemGroup title="Item 2">
+                            <Menu.Item key="setting:3">Option 3</Menu.Item>
+                            <Menu.Item key="setting:4">Option 4</Menu.Item>
+                        </MenuItemGroup>
+                    </SubMenu>
+                    <Menu.Item key="alipay">
+                        <a href="#" target="_blank" rel="noopener noreferrer">题库</a>
+                    </Menu.Item>
+                </Menu>
+        );
+    }
+}
 
 class App extends React.Component {
 
@@ -195,19 +252,20 @@ class App extends React.Component {
 
             <div>
                 <Home/>
-
+                <Sider />
+                <DatePicker defaultValue={moment()} />
                 <RankList users={this.state.users}/>
 
 
-                <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
-                <EmployeeList employees={this.state.employees}
-                              links={this.state.links}
-                              pageSize={this.state.pageSize}
-                              attributes={this.state.attributes}
-                              onNavigate={this.onNavigate}
-                              onUpdate={this.onUpdate}
-                              onDelete={this.onDelete}
-                              updatePageSize={this.updatePageSize}/>
+                {/*<CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>*/}
+                {/*<EmployeeList employees={this.state.employees}*/}
+                              {/*links={this.state.links}*/}
+                              {/*pageSize={this.state.pageSize}*/}
+                              {/*attributes={this.state.attributes}*/}
+                              {/*onNavigate={this.onNavigate}*/}
+                              {/*onUpdate={this.onUpdate}*/}
+                              {/*onDelete={this.onDelete}*/}
+                              {/*updatePageSize={this.updatePageSize}/>*/}
             </div>
         )
     }
