@@ -17,14 +17,14 @@ package cn.edu.xju.acm.oj.example;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-
+import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 /**
  * @author Greg Turnquist
  */
 // tag::code[]
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
     List<Employee> findBy(@Param("name") String name);
 }
 // end::code[]
