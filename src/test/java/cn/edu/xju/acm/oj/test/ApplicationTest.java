@@ -30,22 +30,6 @@ public class ApplicationTest {
     @Test
     public void addUser() {
 
-        List<User> users = new ArrayList <>();
 
-        for(int i = 0; i < 10; i ++) {
-            User user = new User();
-
-            user.setEmail(i + "@qq.com");
-            user.setAcsessTime(String.valueOf(new Date()));
-            user.setPassword("123456");
-
-            repository.save(user);
-        }
-
-        users = repository.findAll();
-
-        for (User u: users) {
-            System.out.println(u.getEmail());
-        }
     }
 }
