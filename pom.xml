@@ -11,7 +11,7 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>com.greglturnquist</groupId>
+	<groupId>cn.edu.xju.acm.oj</groupId>
 	<artifactId>react-and-spring-data-rest-basic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -108,8 +108,8 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v4.4.5</nodeVersion>
-							<npmVersion>3.9.2</npmVersion>
+							<nodeVersion>v9.3.0</nodeVersion>
+							<npmVersion>5.5.1</npmVersion>
 						</configuration>
 					</execution>
 					<execution>
