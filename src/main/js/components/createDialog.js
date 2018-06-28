@@ -36,13 +36,13 @@ export default class CreateDialog extends Component {
         );
         return (
             <div>
-                <a href="#createEmployee">Create</a>
+                <a href="#createEmployee">Create a admin</a>
 
                 <div id="createEmployee" className="modalDialog">
                     <div>
                         <a href="#" title="Close" className="close">X</a>
 
-                        <h2>Create new employeeeeeeeeeeee</h2>
+                        <h2>Create new admin</h2>
 
                         <form>
                             {inputs}

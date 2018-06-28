@@ -6,19 +6,85 @@ import EmployeeList from './components/employeeList'
 import User from "./components/user";
 import RankList from "./components/rankList";
 import moment from 'moment';
-import { DatePicker, version } from 'antd';
-
-
 const React = require('react');
 const ReactDOM = require('react-dom')
 const when = require('when');
 const client = require('./client');
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Form, Input, Button, Radio } from 'antd';
+const FormItem = Form.Item;
+
 const MenuItemGroup = Menu.ItemGroup;
 const SubMenu = Menu.SubMenu;
 const follow = require('./follow'); // function to hop multiple links by "rel"
 
 const root = '/api';
+
+
+function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+}
+
+class HorizontalLoginForm extends React.Component {
+    constructor(props){
+        super(props)
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount() {
+        // To disabled submit button at the beginning.
+        this.props.form.validateFields();
+    }
+    handleSubmit (e) {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+        });
+    }
+    render() {
+        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+
+        // Only show error after a field is touched.
+        const userNameError = isFieldTouched('userName') && getFieldError('userName');
+        const passwordError = isFieldTouched('password') && getFieldError('password');
+        return (
+            <Form layout="inline" onSubmit={this.handleSubmit}>
+                <FormItem
+                    validateStatus={userNameError ? 'error' : ''}
+                    help={userNameError || ''}
+                >
+                    {getFieldDecorator('userName', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                    )}
+                </FormItem>
+                <FormItem
+                    validateStatus={passwordError ? 'error' : ''}
+                    help={passwordError || ''}
+                >
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    })(
+                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                    )}
+                </FormItem>
+                <FormItem>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        disabled={hasErrors(getFieldsError())}
+                    >
+                        Log in
+                    </Button>
+                </FormItem>
+            </Form>
+        );
+    }
+}
+
+const WrappedHorizontalLoginForm = Form.create()(HorizontalLoginForm);
+
 class Sider extends React.Component {
     constructor(props) {
         super(props); // you always need to call super();
@@ -67,7 +133,10 @@ class Sider extends React.Component {
                     <Menu.Item key="alipay">
                         <a href="#" target="_blank" rel="noopener noreferrer">题库</a>
                     </Menu.Item>
+                    <WrappedHorizontalLoginForm />
+
                 </Menu>
+
         );
     }
 }
@@ -76,7 +145,7 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {employees: [], attributes: [], pageSize: 2, links: {}, users: []};
+        this.state = {employees: [], attributes: [], pageSize: 20, links: {}, users: []};
 
         this.updatePageSize = this.updatePageSize.bind(this);
         this.onCreate = this.onCreate.bind(this);
@@ -251,21 +320,21 @@ class App extends React.Component {
         return (
 
             <div>
-                <Home/>
+
                 <Sider />
-                <DatePicker defaultValue={moment()} />
+
                 <RankList users={this.state.users}/>
 
 
-                {/*<CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>*/}
-                {/*<EmployeeList employees={this.state.employees}*/}
-                              {/*links={this.state.links}*/}
-                              {/*pageSize={this.state.pageSize}*/}
-                              {/*attributes={this.state.attributes}*/}
-                              {/*onNavigate={this.onNavigate}*/}
-                              {/*onUpdate={this.onUpdate}*/}
-                              {/*onDelete={this.onDelete}*/}
-                              {/*updatePageSize={this.updatePageSize}/>*/}
+                <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
+                <EmployeeList employees={this.state.employees}
+                              links={this.state.links}
+                              pageSize={this.state.pageSize}
+                              attributes={this.state.attributes}
+                              onNavigate={this.onNavigate}
+                              onUpdate={this.onUpdate}
+                              onDelete={this.onDelete}
+                              updatePageSize={this.updatePageSize}/>
             </div>
         )
     }

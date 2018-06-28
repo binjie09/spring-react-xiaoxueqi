@@ -42,7 +42,7 @@ export default class UpdateDialog extends Component {
                     <div>
                         <a href="#" title="Close" className="close">X</a>
 
-                        <h2>Update an employee</h2>
+                        <h2>Update an admin</h2>
 
                         <form>
                             {inputs}

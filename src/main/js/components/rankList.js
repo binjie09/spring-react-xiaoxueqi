@@ -12,8 +12,21 @@ export default class RankList extends Component {
 
     constructor(props) {
         super(props);
+
+
+        this.state = {data: [], pagination: {}, loading: false};
+    }
+    componentDidMount(){
+        console.log("rank did mount")
+        var temp = this.props.users.map(user => {
+            user.nick;
+        });
+
+
+        this.setState({data: temp})
     }
     render() {
+
         var users = this.props.users.map(user =>
             <User key={user._links.self.href}
                       user={user}
