@@ -8,7 +8,7 @@ const follow = require('../follow'); // function to hop multiple links by "rel"
 const root = '/api';
 
 
-export default class EmployeeList extends Component {
+export default class HyperStatusList extends Component {
 
     constructor(props) {
         super(props);

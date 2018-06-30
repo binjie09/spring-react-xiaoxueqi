@@ -30,5 +30,10 @@ public class HomeController {
 		return "index";
 	}
 
+
+	@RequestMapping(value = "/ranklist")
+	public String ranklist() {
+		return "index";
+	}
 }
 // end::code[]

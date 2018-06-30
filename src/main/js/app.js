@@ -1,24 +1,25 @@
 'use strict';
 
-import Home from "./containers/home";
 import CreateDialog from './components/createDialog'
-import EmployeeList from './components/employeeList'
-import User from "./components/user";
-import RankList from "./components/rankList";
-import moment from 'moment';
+import HyperStatusList from './components/hyperStatusList'
+import Home from './containers/home'
 const React = require('react');
 const ReactDOM = require('react-dom')
 const when = require('when');
 const client = require('./client');
-import { Menu, Icon, Form, Input, Button, Radio } from 'antd';
+import {BrowserRouter, Route, Link} from 'react-router-dom';
+import { Menu, Icon, Form, Input, Button, Radio,Select } from 'antd';
+import RankList from "./components/rankList";
 const FormItem = Form.Item;
 
 const MenuItemGroup = Menu.ItemGroup;
 const SubMenu = Menu.SubMenu;
 const follow = require('./follow'); // function to hop multiple links by "rel"
-
 const root = '/api';
 
+const getConfirmation = () => {
+    // window.confirm('Are you sure?')
+}
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -114,24 +115,33 @@ class Sider extends React.Component {
                     selectedKeys={[this.state.current]}
                     mode="horizontal"
                 >
+                    <Menu.Item key="index">
+                        首页
+                        <Link to='/'> </Link>
+                    </Menu.Item>
                     <Menu.Item key="mail">
-                        <Icon type="mail" />排行榜
+                         <Icon type="mail" />
+                        排行榜
+                        <Link to='/ranklist'> </Link>
                     </Menu.Item>
                     <Menu.Item key="app" disabled>
                         <Icon type="appstore" />举行的比赛
                     </Menu.Item>
-                    <SubMenu title={<span><Icon type="setting" />Navigation Three - Submenu</span>}>
+                    <SubMenu title={<span><Icon type="setting" />管理</span>}>
                         <MenuItemGroup title="Item 1">
-                            <Menu.Item key="setting:1">Option 1</Menu.Item>
-                            <Menu.Item key="setting:2">Option 2</Menu.Item>
+                            <Menu.Item key="setting:1">添加题目数据</Menu.Item>
+                            <Menu.Item key="setting:2">管理员设置
+                                <Link to='/'> </Link>
+                            </Menu.Item>
                         </MenuItemGroup>
                         <MenuItemGroup title="Item 2">
                             <Menu.Item key="setting:3">Option 3</Menu.Item>
                             <Menu.Item key="setting:4">Option 4</Menu.Item>
                         </MenuItemGroup>
+
                     </SubMenu>
                     <Menu.Item key="alipay">
-                        <a href="#" target="_blank" rel="noopener noreferrer">题库</a>
+                        题库
                     </Menu.Item>
                     <WrappedHorizontalLoginForm />
 
@@ -152,6 +162,14 @@ class App extends React.Component {
         this.onUpdate = this.onUpdate.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onNavigate = this.onNavigate.bind(this);
+        this.normFile = this.normFile.bind(this);
+    }
+    normFile (e)  {
+        console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
     }
     loadFromServerUser(pageSize) {
         follow(client, root, [
@@ -309,25 +327,30 @@ class App extends React.Component {
     componentDidMount() {
         this.loadFromServer(this.state.pageSize);
        // this.loadFromServerUser(this.state.pageSize);
-        client({method: 'GET', path: '/api/users?sort=solved,desc'}).done(response => {
-            this.setState({users: response.entity._embedded.users});
-        });
+
     }
     // end::follow-1[]
 
     render() {
 
+        const formItemLayout = {
+            labelCol: { span: 6 },
+            wrapperCol: { span: 14 },
+        };
         return (
 
             <div>
 
-                <Sider />
 
-                <RankList users={this.state.users}/>
-
+                <BrowserRouter basename="/">
+                    <div>
+                         <Sider />
+                         <Route exact path="/ranklist" component={RankList} />
+                    </div>
+                </BrowserRouter>
 
                 <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
-                <EmployeeList employees={this.state.employees}
+                <HyperStatusList employees={this.state.employees}
                               links={this.state.links}
                               pageSize={this.state.pageSize}
                               attributes={this.state.attributes}
@@ -335,6 +358,7 @@ class App extends React.Component {
                               onUpdate={this.onUpdate}
                               onDelete={this.onDelete}
                               updatePageSize={this.updatePageSize}/>
+
             </div>
         )
     }

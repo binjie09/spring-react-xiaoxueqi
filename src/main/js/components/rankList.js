@@ -4,7 +4,7 @@ const ReactDOM = require('react-dom')
 import React, { Component } from 'react';
 import User from './user'
 const follow = require('../follow'); // function to hop multiple links by "rel"
-
+const client = require('../client');
 const root = '/api';
 
 
@@ -14,20 +14,17 @@ export default class RankList extends Component {
         super(props);
 
 
-        this.state = {data: [], pagination: {}, loading: false};
+        this.state = {users: [], data: [], pagination: {}, loading: false};
+        client({method: 'GET', path: '/api/users?sort=solved,desc'}).done(response => {
+            this.setState({users: response.entity._embedded.users});
+        });
     }
     componentDidMount(){
         console.log("rank did mount")
-        var temp = this.props.users.map(user => {
-            user.nick;
-        });
-
-
-        this.setState({data: temp})
     }
     render() {
-
-        var users = this.props.users.map(user =>
+        console.log(this.state.users);
+        var users = this.state.users.map(user =>
             <User key={user._links.self.href}
                       user={user}
                     />
