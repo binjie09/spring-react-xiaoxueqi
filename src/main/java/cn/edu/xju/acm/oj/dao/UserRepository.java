@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Version 1.0 cn.edu.xju.acm.oj.entity
  */
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername(String username);
+
 }

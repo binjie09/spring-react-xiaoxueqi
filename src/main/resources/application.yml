@@ -1,14 +1,18 @@
-
+server:
+  port: 8443
 # spring 配置
 spring:
   # data rest 配置
+
   data:
     rest:
       base-path: /api
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+
     show-sql: true
+    #database-platform: MySQL5Dialect
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: UTC
@@ -16,7 +20,9 @@ spring:
   # DataSource
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://218.195.250.2:3306/dev
+    #url: jdbc:mysql://218.195.250.2:3306/dev?useSSL=false
+    url: jdbc:mysql://localhost:3306/dev?useSSL=false
     username: root
-    password: Rjxy123
+    password: yishuida
+    #password: Rjxy123
 
